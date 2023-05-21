@@ -1,0 +1,18 @@
+{
+  "ts-node": {
+    "esm": true,
+    "files": true,
+    "experimentalSpecifierResolution": "node"
+  },
+  "compilerOptions": {
+    "outDir": "./dist",
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "allowJs": true,
+    "moduleResolution": "node"
+  },
+  "include": ["./**/*.ts"],
+  "exclude": [
+    "../node_modules"
+  ]
+}

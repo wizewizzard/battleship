@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "mocha --config ./test/mocha.config.js",
+    "test": "tsc -p ./test/tsconfig.json & mocha --config ./test/mocha.config.js",
     "build": "webpack --mode production --config ./config/webpack.config.js",
     "dev": "webpack-dev-server --mode development"
   },
