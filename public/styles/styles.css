@@ -1,0 +1,18 @@
+.container {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.players__container {
+    display: flex;
+    flex-direction: row;
+}
+
+.player__container {
+    width:50%;
+}
+
+.field__cell {
+    height: 30px;
+    width: 30px;
+}
