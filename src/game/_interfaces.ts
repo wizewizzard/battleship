@@ -2,7 +2,7 @@ import {GameBoard} from './board/gameBoard';
 import Ship from './ship';
 import {EventType} from "./_enums";
 
-export interface FieldBuilder {
+export interface GameBoardBuilder {
     placeShip(ship: Ship): void | never;
     build(): GameBoard;
 }

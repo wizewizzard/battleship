@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "tsc -p ./test/tsconfig.json & mocha --config ./test/mocha.config.js",
     "build": "webpack --mode production --config ./config/webpack.config.js",
-    "dev": "webpack-dev-server --config ./config/webpack.config.js --mode development"
+    "dev": "webpack-dev-server --config ./config/webpack.config.js --mode development",
+    "test": "ts-mocha -p test/tsconfig.json ./test/**/*.ts"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/chai": "^4.3.5",
+    "@types/expect": "^24.3.0",
     "@types/lodash": "^4.14.194",
     "@types/mocha": "^10.0.1",
     "@typescript-eslint/eslint-plugin": "^5.59.6",
@@ -23,6 +24,7 @@
     "mocha": "^10.2.0",
     "style-loader": "^3.3.3",
     "ts-loader": "^9.4.2",
+    "ts-mocha": "^10.0.0",
     "ts-node": "^10.9.1",
     "tsconfig-paths-webpack-plugin": "^4.0.1",
     "typescript": "^5.0.4",
