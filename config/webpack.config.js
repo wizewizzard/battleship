@@ -1,7 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
     entry: './src/index.js',
@@ -12,8 +11,8 @@ module.exports = {
                 use: [{
                     loader: 'ts-loader',
                     options: {
-                        configFile: "/config/tsconfig.json"
-                    }
+                        configFile: path.resolve(__dirname, "tsconfig.json")
+                    },
                 }],
                 exclude: /node_modules/,
             },
