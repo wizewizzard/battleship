@@ -1,5 +1,4 @@
 import {GameEvent, Stage} from "./_interfaces";
-import {GameState} from "./game";
 import {EventType} from "./_enums";
 import Player from "./player";
 
@@ -19,17 +18,23 @@ export default class StageManager {
     dispatch(event: GameEvent) {
         this.currentStage.handleEvent(event);
     }
+
+    moveToNextStage(): void {
+        const nextStage = this.currentStage.getNextStage();
+        if (nextStage) {
+            this.currentStage = next;
+        }
+    }
 }
 
 class PrepareStage implements Stage {
     private player1Ready: boolean;
     private player2Ready: boolean;
-    private readonly onComplete;
-    private gameState: GameState;
+    onComplete: () => any;
+    private readonly gameState: GameState;
 
-    constructor(gameState: GameState, onComplete: (_: any) => any) {
+    constructor(gameState: GameState) {
         this.gameState = gameState;
-        this.onComplete = onComplete;
     }
 
     handleEvent(event: GameEvent): void {
@@ -47,15 +52,33 @@ class PrepareStage implements Stage {
             }
         }
     }
+
+    getNextStage(): Stage {
+        if (this.player1Ready && this.player2Ready) {
+            return new ShipPlacementStage(this.gameState)
+        }
+    }
 }
 
 class ShipPlacementStage implements Stage {
-    onComplete;
+    private readonly gameState: GameState;
+    private Field
+    onComplete: () => any;
+
+    constructor(gameState: GameState) {
+        this.gameState = gameState;
+    }
+
     handleEvent(event: GameEvent): void {
         if (event.type === EventType.shipPlacement) {
-            const player = event.payload.player;
+            const ship = event.payload.ship;
+            const coordinates = event.payload.coordinates;
 
         }
+    }
+
+    getNextStage(): Stage {
+        return undefined;
     }
 
 }

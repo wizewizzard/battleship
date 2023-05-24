@@ -1,5 +1,5 @@
 export default {
-    fieldElementId: 'TBD',
-    cellClass: 'TBD',
-    fieldSide: 10
+    fieldElementClass: 'player__field',
+    cellClass: 'field__cell',
+    boardSize: 10
 };

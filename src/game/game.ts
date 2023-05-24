@@ -1,6 +1,6 @@
 import {Stage} from "./_interfaces";
 import Player from "./player";
-import {Field} from "./field/field";
+import {GameBoard} from "./board/gameBoard";
 
 class BattleShipGame {
 
