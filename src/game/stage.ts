@@ -1,6 +1,7 @@
-import {GameEvent, Stage} from "./_interfaces";
+import {GameBoardBuilder, GameEvent, Stage} from "./_interfaces";
 import {EventType} from "./_enums";
 import Player from "./player";
+import {GameBoardBuilderImpl} from "./board/gameBoard";
 
 class GameState {
     player1: Player;
@@ -10,8 +11,6 @@ class GameState {
 export default class StageManager {
     private currentStage: Stage;
     constructor(gameState: GameState) {
-        const setPlacementStage = () => this.currentStage = new ShipPlacementStage();
-        const setPrepareStage = () => this.currentStage = new PrepareStage();
 
     }
 
@@ -22,7 +21,7 @@ export default class StageManager {
     moveToNextStage(): void {
         const nextStage = this.currentStage.getNextStage();
         if (nextStage) {
-            this.currentStage = next;
+            this.currentStage = nextStage;
         }
     }
 }
@@ -62,7 +61,29 @@ class PrepareStage implements Stage {
 
 class ShipPlacementStage implements Stage {
     private readonly gameState: GameState;
-    private Field
+    private gameBoardBuilder: GameBoardBuilder;
+    onComplete: () => any;
+
+    constructor(gameState: GameState) {
+        this.gameState = gameState;
+        this.gameBoardBuilder = new GameBoardBuilderImpl();
+    }
+
+    handleEvent(event: GameEvent): void {
+        if (event.type === EventType.shipPlacement) {
+            const ship = event.payload.ship;
+            this.gameBoardBuilder.placeShip(ship);
+        }
+    }
+
+    getNextStage(): Stage {
+        return new PlayStage(this.gameState);
+    }
+
+}
+
+class PlayStage implements Stage {
+    private readonly gameState: GameState;
     onComplete: () => any;
 
     constructor(gameState: GameState) {
@@ -70,23 +91,21 @@ class ShipPlacementStage implements Stage {
     }
 
     handleEvent(event: GameEvent): void {
-        if (event.type === EventType.shipPlacement) {
-            const ship = event.payload.ship;
-            const coordinates = event.payload.coordinates;
-
-        }
     }
 
     getNextStage(): Stage {
         return undefined;
     }
-
 }
 
-class PlayStage {
+class GameOverStage implements Stage {
+    onComplete: () => any;
 
-}
+    handleEvent(event: GameEvent): void {
+    }
 
-class GameOverStage {
-
+    getNextStage(): Stage {
+        return null;
+        // return new PrepareStage(this.game);
+    }
 }
