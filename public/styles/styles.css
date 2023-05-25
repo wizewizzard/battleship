@@ -3,6 +3,14 @@
     margin: 0 auto;
 }
 
+.header__container {
+
+}
+
+.header {
+    margin: 20px auto 40px;
+}
+
 .players__container {
     display: flex;
     flex-direction: row;
@@ -12,7 +20,39 @@
     width:50%;
 }
 
+.player-name__container h2 {
+    text-align: center;
+}
+
+.player__field__container {
+
+}
+
+.player__field {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #525252;
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.field__row {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+}
+
 .field__cell {
+    border: 1px solid #525252;
+    cursor: pointer;
     height: 30px;
     width: 30px;
+}
+
+.field__cell.empty {
+    background: #eeeeee;
+}
+
+.field__cell.hit {
+    background: #eeeeee;
 }
