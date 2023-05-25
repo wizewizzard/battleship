@@ -1,7 +1,7 @@
 import {GameBoardBuilder} from '../_interfaces';
 import Ship from "../ship";
 import {FieldCellHit, FieldCellShip} from "../_enums";
-import config from '../../keys.js';
+import config from '../../keys';
 import ShipPlacementError from "../exception/ShipPlacementError";
 
 type Cell = {
@@ -12,22 +12,25 @@ type Cell = {
 }
 
 export class GameBoard {
+    readonly ships: Ship[];
     readonly board: Cell[][];
 
-    constructor(board: Cell[][]) {
+    constructor(board: Cell[][], ships: Ship[]) {
         this.board = board;
+        this.ships = ships;
     }
 }
 
-class ShipPlacementValidator {
+class FieldBuilderValidator {
     private readonly fieldArray: Cell[][];
+    private readonly ships: Ship[];
 
-
-    constructor(fieldArray: Cell[][]) {
+    constructor(fieldArray: Cell[][], ships: Ship[]) {
         this.fieldArray = fieldArray;
+        this.ships =  ships;
     }
 
-    validate(ship: Ship): boolean {
+    validatePlacement(ship: Ship): boolean {
         return !ship.coordinates
             .some(p => {
                 if (p.x < 0 || p.x >= config.boardSize) return true;
@@ -35,15 +38,21 @@ class ShipPlacementValidator {
                 if (this.fieldArray[p.y][p.x].ship === FieldCellShip.ship) return true;
             });
     }
+
+    validateBuild(): boolean {
+        return this.ships.length === 10;
+    }
 }
 
 export class GameBoardBuilderImpl implements GameBoardBuilder {
-    private readonly placementValidator: ShipPlacementValidator;
+    private readonly builderValidator: FieldBuilderValidator;
     private readonly fieldArray: Cell[][];
+    private readonly ships: Ship[];
 
     constructor() {
         this.fieldArray = [];
-        this.placementValidator = new ShipPlacementValidator(this.fieldArray);
+        this.ships = [];
+        this.builderValidator = new FieldBuilderValidator(this.fieldArray, this.ships);
         for (let i = 0; i < config.boardSize; i++) {
             const row: Cell[] = [];
             for (let j = 0; j < config.boardSize; j++) {
@@ -59,11 +68,13 @@ export class GameBoardBuilderImpl implements GameBoardBuilder {
     }
 
     build(): GameBoard {
-        return new GameBoard(this.fieldArray);
+        if (this.builderValidator.validateBuild()) {
+            return new GameBoard(this.fieldArray, this.ships);
+        }
     }
 
     placeShip(ship: Ship): void {
-        if (!this.placementValidator.validate(ship)) {
+        if (!this.builderValidator.validatePlacement(ship)) {
             throw new ShipPlacementError('Ship cannot be placed here');
         }
         ship.coordinates.forEach(p => this.fieldArray[p.y][p.x].ship = FieldCellShip.ship);
