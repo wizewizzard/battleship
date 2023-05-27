@@ -6,6 +6,7 @@ body {
     font-family: montserrat,  sans-serif;
     font-weight: 900;
     font-style: normal;
+    font-size: 16px;
 }
 
 .container {
@@ -47,7 +48,6 @@ body {
 }
 
 .player__field {
-    border: 1px solid #525252;
     margin: 0 auto;
     width: fit-content;
 }
@@ -57,7 +57,7 @@ body {
 }
 
 .field__cell {
-    border: 1px solid #525252;
+    border: 1px solid #eee;
     cursor: pointer;
     height: 30px;
     width: 30px;
@@ -67,19 +67,32 @@ body {
     background: #8192fa;
 }
 
-.field__cell:hover {
-    background: #daf1ff;
+.field__cell:not(.hit):hover {
+    background: #b5bdff;
 }
 
 .field__cell.hit {
     background: #ffa2a2;
 }
 
+.buttons__container {
+    margin-top: 30px;
+}
+
 .notification-window__message__container {
+    border-radius: 20px;
     background: #fff;
-    margin: 0 auto;
+    margin: 400px auto;
     width: 500px;
     padding: 70px 30px 70px 30px;
+}
+
+.notification--info {
+
+}
+
+.notification--error {
+
 }
 
 .close:hover,

@@ -1,18 +1,19 @@
 import {initNotificationWindow, instantiateFieldElement} from "./render";
-import keys from "../keys";
+import {MessageType} from "./_enum";
 
 function applyListeners() {
-    document.querySelectorAll('.' + keys.cellClass).forEach(e => {
-        e.addEventListener('click', (event) => {
-            console.log(event);
+    document.querySelectorAll('.field__cell').forEach(e => {
+        e.addEventListener('click', () => {
+            showNotificationWindow('Hello', MessageType.hint);
         });
+    });
+    document.getElementById('notification-window').addEventListener('click', () => {
+        hideNotificationWindow();
     });
 }
 
-const {showNotificationWindow, hideNotificationWindow} = initNotificationWindow(document.getElementById(keys.notificationWindowId));
-console.log(showNotificationWindow, hideNotificationWindow);
-hideNotificationWindow();
-const fields = document.querySelectorAll('.' + keys.fieldElementClass);
+const {showNotificationWindow, hideNotificationWindow} = initNotificationWindow(document.getElementById('notification-window'));
+const fields = document.querySelectorAll('.player__field');
 fields.forEach(e => instantiateFieldElement(e));
 console.log(fields);
 
