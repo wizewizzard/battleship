@@ -1,19 +1,28 @@
-.container {
-    width: 1000px;
-    margin: 0 auto;
+@import url('./default.css');
+@import url('./fonts.css');
+
+body {
+    background: #eeeeee;
+    font-family: montserrat,  sans-serif;
+    font-weight: 900;
+    font-style: normal;
 }
 
-.header__container {
-
+.container {
+    width: 1000px;
+    margin: 100px auto;
+    background: white;
+    padding: 70px 30px 70px 30px;
+    border-radius: 10px;
+    box-shadow: 0px 20px 10px #bbbbbb;
 }
 
 .header {
     margin: 20px auto 40px;
 }
 
-.players__container {
-    display: flex;
-    flex-direction: row;
+.header h1 {
+    text-align: center;
 }
 
 .player__container {
@@ -24,21 +33,26 @@
     text-align: center;
 }
 
-.player__field__container {
+.player-name {
+    position: relative;
+}
 
+.turn-icon {
+    position: absolute;
+    top: 0;
+    left: calc(100% + 20px);
+    width: 30px;
+    height: 30px;
+    background: url("../assets/player-turn.svg");
 }
 
 .player__field {
-    display: flex;
-    flex-direction: column;
     border: 1px solid #525252;
     margin: 0 auto;
     width: fit-content;
 }
 
 .field__row {
-    display: flex;
-    flex-direction: row;
     width: fit-content;
 }
 
@@ -50,9 +64,27 @@
 }
 
 .field__cell.empty {
-    background: #eeeeee;
+    background: #8192fa;
+}
+
+.field__cell:hover {
+    background: #daf1ff;
 }
 
 .field__cell.hit {
-    background: #eeeeee;
+    background: #ffa2a2;
+}
+
+.notification-window__message__container {
+    background: #fff;
+    margin: 0 auto;
+    width: 500px;
+    padding: 70px 30px 70px 30px;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }

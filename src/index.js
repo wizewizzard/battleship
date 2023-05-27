@@ -1,1 +1,2 @@
-import '../public/styles/styles.css'
+import "./ui/uiInit.ts";
+import '../public/styles/styles.css';
