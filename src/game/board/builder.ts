@@ -42,8 +42,6 @@ export class GameBoardBuilderImpl implements GameBoardBuilder {
             const row: Cell[] = [];
             for (let j = 0; j < config.boardSize; j++) {
                 row.push({
-                    x: j,
-                    y: i,
                     ship: FieldCellShip.empty,
                     hit: FieldCellHit.empty
                 });

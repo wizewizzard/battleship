@@ -1,7 +1,8 @@
 import {GameBoardBuilder, GameEvent, Stage} from "./_interfaces";
-import {EventType} from "./_enums";
+import {UserEventType} from "./_enums";
 import Player from "./player";
-import {GameBoardBuilderImpl} from "./board/gameBoard";
+import {GameBoardBuilderImpl} from "./board/builder";
+import {Point2D} from "./_types";
 
 class GameState {
     player1: Player;
@@ -10,6 +11,7 @@ class GameState {
 
 export default class StageManager {
     private currentStage: Stage;
+
     constructor(gameState: GameState) {
 
     }
@@ -19,82 +21,49 @@ export default class StageManager {
     }
 
     moveToNextStage(): void {
-        const nextStage = this.currentStage.getNextStage();
+        /*const nextStage = this.currentStage.getNextStage();
         if (nextStage) {
             this.currentStage = nextStage;
-        }
-    }
-}
-
-class PrepareStage implements Stage {
-    private player1Ready: boolean;
-    private player2Ready: boolean;
-    onComplete: () => any;
-    private readonly gameState: GameState;
-
-    constructor(gameState: GameState) {
-        this.gameState = gameState;
-    }
-
-    handleEvent(event: GameEvent): void {
-        if (event.type === EventType.readyButtonToggle) {
-            const player = event.payload.player;
-            if (event.payload.player === this.gameState.player1) {
-                this.player1Ready = !this.player1Ready;
-            } else if (event.payload.player === this.gameState.player2) {
-                this.player2Ready = !this.player2Ready;
-            } else {
-                console.warn(`Unknown player ${event.payload.player}`)
-            }
-            if (this.player1Ready && this.player2Ready) {
-                this.onComplete();
-            }
-        }
-    }
-
-    getNextStage(): Stage {
-        if (this.player1Ready && this.player2Ready) {
-            return new ShipPlacementStage(this.gameState)
-        }
+        }*/
     }
 }
 
 class ShipPlacementStage implements Stage {
     private readonly gameState: GameState;
     private gameBoardBuilder: GameBoardBuilder;
-    onComplete: () => any;
+    private readonly onComplete: () => void;
 
-    constructor(gameState: GameState) {
+    constructor(gameState: GameState, onComplete: () => void) {
         this.gameState = gameState;
         this.gameBoardBuilder = new GameBoardBuilderImpl();
+        this.onComplete = onComplete;
     }
 
     handleEvent(event: GameEvent): void {
-        if (event.type === EventType.shipPlacement) {
+        if (event.type === UserEventType.shipPlacement) {
             const ship = event.payload.ship;
             this.gameBoardBuilder.placeShip(ship);
         }
-    }
 
-    getNextStage(): Stage {
-        return new PlayStage(this.gameState);
+        if (false) {
+            this.onComplete();
+        }
     }
-
 }
 
 class PlayStage implements Stage {
     private readonly gameState: GameState;
-    onComplete: () => any;
+    private readonly onComplete: () => void;
 
-    constructor(gameState: GameState) {
+    constructor(gameState: GameState, onComplete: () => void) {
         this.gameState = gameState;
+        this.onComplete = onComplete;
     }
 
-    handleEvent(event: GameEvent): void {
-    }
-
-    getNextStage(): Stage {
-        return undefined;
+    handleEvent(event: GameEvent, ): void {
+        if (event.type === UserEventType.shot) {
+            const coordinates:Point2D = event.payload.coordinates;
+        }
     }
 }
 
