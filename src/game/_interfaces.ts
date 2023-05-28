@@ -1,6 +1,6 @@
 import {GameBoard} from './board/gameBoard';
 import Ship from './ship';
-import {EventType} from "./_enums";
+import {UserEventType} from "./_enums";
 
 export interface GameBoardBuilder {
     placeShip(ship: Ship): void | never;
@@ -8,12 +8,10 @@ export interface GameBoardBuilder {
 }
 
 export interface Stage {
-    onComplete: () => void;
-    getNextStage: () => Stage;
     handleEvent(event: GameEvent): void;
 }
 
 export interface GameEvent {
-    type: EventType;
+    type: UserEventType;
     payload: any;
 }

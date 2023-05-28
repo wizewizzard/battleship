@@ -1,6 +1,7 @@
-export enum EventType {
+export enum UserEventType {
     readyButtonToggle,
-    shipPlacement
+    shipPlacement,
+    shot
 }
 
 export enum FieldCellHit {
@@ -11,4 +12,14 @@ export enum FieldCellHit {
 export enum FieldCellShip {
     empty,
     ship
+}
+
+export enum ShipState {
+    intact,
+    hit,
+    sunk
+}
+
+export enum ErrorType {
+    invalidPlacement
 }
