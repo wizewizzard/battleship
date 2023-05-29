@@ -13,5 +13,4 @@ export interface Stage {
 
 export interface GameEvent {
     type: UserEventType;
-    payload: any;
 }
