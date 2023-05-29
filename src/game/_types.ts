@@ -16,5 +16,3 @@ export type ShipPlacementPayload = {
     player: Player;
     coordinates: number[];
 }
-
-export type PayloadType = ShipPlacementPayload | ShotPayload | ReadyEventPayload;
