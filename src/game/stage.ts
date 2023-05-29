@@ -4,6 +4,7 @@ import {GameBoardBuilderImpl} from "./board/builder";
 import {Point2D} from "./_types";
 import {ReadyEvent, ShipPlacementEvent, ShotEvent} from "./event";
 import {GameState} from "./game";
+import BoardShotHandler from "./board/shooting";
 
 export default class GameStageController {
     private currentStage: Stage;
@@ -78,18 +79,31 @@ class ShipPlacementStage implements Stage<ShipPlacementEvent> {
     }
 }
 
-class PlayStage implements Stage<ShotEvent> {
+class PlayStage implements Stage {
     private readonly gameState: GameState;
+    private readonly shotHandler1: BoardShotHandler;
+    private readonly shotHandler2: BoardShotHandler;
     private readonly onComplete: () => void;
 
     constructor(gameState: GameState, onComplete: () => void) {
         this.gameState = gameState;
+        this.shotHandler1 = new BoardShotHandler(this.gameState.gameBoard1,
+            () => {}, () => {}, () => {});
+        this.shotHandler2 = new BoardShotHandler(this.gameState.gameBoard2,
+            () => {}, () => {}, () => {});
         this.onComplete = onComplete;
     }
 
     handleEvent(event: ShotEvent): void {
         if (event.type === UserEventType.shot) {
-            const coordinates: Point2D = event.payload.coordinates;
+            const shotEvent = event as ShotEvent;
+            if ( this.gameState.turn === 1 && shotEvent.payload.player === this.gameState.player1) {
+                this.shotHandler1.handleShot({x: shotEvent.payload.x, y: shotEvent.payload.y});
+            } else if (this.gameState.turn === 2 && shotEvent.payload.player === this.gameState.player2) {
+                this.shotHandler2.handleShot({x: shotEvent.payload.x, y: shotEvent.payload.y});
+            } else {
+                throw 'You can not perform this action';
+            }
         }
     }
 }

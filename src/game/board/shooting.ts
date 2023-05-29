@@ -2,7 +2,7 @@ import {Point2D} from "../_types";
 import {GameBoard} from "./gameBoard";
 import {FieldCellHit, FieldCellShip, ShipState} from "../_enums";
 
-export class BoardShotHandler {
+export default class BoardShotHandler {
     private readonly gameBoard: GameBoard;
     private readonly onShipHit: () => void;
     private readonly onShipDestruction: () => void;

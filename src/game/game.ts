@@ -19,4 +19,5 @@ export class GameState {
     gameBoard1: GameBoard;
     player2: Player;
     gameBoard2: GameBoard;
+    turn: number;
 }
