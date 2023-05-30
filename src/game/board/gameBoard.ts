@@ -1,6 +1,7 @@
 import {GameBoardBuilder} from '../_interfaces';
 import Ship from "../ship";
 import {FieldCellHit, FieldCellShip} from "../_enums";
+import {Point2D} from "../_types";
 
 export type Cell = {
     ship: FieldCellShip;
@@ -14,5 +15,9 @@ export class GameBoard {
     constructor(board: Cell[][], ships: Ship[]) {
         this.board = board;
         this.ships = ships;
+    }
+
+    getShipAtCoordinate(coords: Point2D): Ship | undefined {
+        return this.ships.find(s => s.contains(coords));
     }
 }
