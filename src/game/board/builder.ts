@@ -5,10 +5,19 @@ import {GameBoardBuilder} from "../_interfaces";
 import {GameBoard} from "./gameBoard";
 import {Cell} from "./gameBoard";
 import BoardValidationError from "../exception/BoardValidationError";
+import {Point2D} from "../_types";
 
 class FieldBuilderValidator {
     private readonly fieldArray: Cell[][];
     private readonly ships: Ship[];
+
+    private readonly hasShip = (coords: Point2D): boolean => {
+        if (coords.y - 1 < 0 || coords.x < 0 ||
+            coords.y >= config.boardSize || coords.x >= config.boardSize ) {
+            return false;
+        }
+        return this.fieldArray[coords.y][coords.x].ship === FieldCellShip.ship;
+    }
 
     constructor(fieldArray: Cell[][], ships: Ship[]) {
         this.fieldArray = fieldArray;
@@ -16,11 +25,22 @@ class FieldBuilderValidator {
     }
 
     validatePlacement(ship: Ship): boolean {
+
+
         return !ship.coordinates
             .some(p => {
                 if (p.x < 0 || p.x >= config.boardSize) return true;
                 if (p.y < 0 || p.y >= config.boardSize) return true;
-                if (this.fieldArray[p.y][p.x].ship === FieldCellShip.ship) return true;
+
+                return this.hasShip({x: p.x - 1, y: p.y - 1}) ||
+                this.hasShip({x: p.x - 1, y: p.y}) ||
+                this.hasShip({x: p.x - 1, y: p.y + 1}) ||
+                this.hasShip({x: p.x, y: p.y - 1}) ||
+                this.hasShip({x: p.x, y: p.y}) ||
+                this.hasShip({x: p.x, y: p.y + 1}) ||
+                this.hasShip({x: p.x + 1, y: p.y - 1}) ||
+                this.hasShip({x: p.x + 1, y: p.y}) ||
+                this.hasShip({x: p.x + 1, y: p.y + 1});
             });
     }
 
