@@ -84,6 +84,7 @@ export class GameBoardBuilderImpl implements GameBoardBuilder {
             throw new BoardValidationError('Ship cannot be placed here');
         }
         ship.coordinates.forEach(p => this.fieldArray[p.y][p.x].ship = FieldCellShip.ship);
+        this.ships.push(ship);
     }
 
 }
