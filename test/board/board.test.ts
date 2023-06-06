@@ -97,7 +97,6 @@ describe('Board builder tests', () => {
         builder.placeShip(new Ship([{x: 7, y: 7}, {x:8, y: 7}, {x:9, y: 7}]));
 
         expect(() => builder.build()).to.throw('There must be three ships of size 2');
-
     });
 
 
@@ -122,6 +121,5 @@ describe('Board builder tests', () => {
 
         _.isEqual(shipAtCoordinate1, ship1);
         _.isEqual(shipAtCoordinate2, ship2);
-
     });
 });

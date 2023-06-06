@@ -5,11 +5,11 @@ import {ShipState} from "./_enums";
 
 
 export default class Ship {
-    readonly coordinates: Array<Point2D>;
+    readonly coordinates: Point2D[];
     readonly size: number;
     state: ShipState;
 
-    constructor(coordinates: Array<Point2D>) {
+    constructor(coordinates: Point2D[]) {
         if (coordinates.length <= 0) throw new ShipCreationError('Ship must take at least 1 cell');
         this.coordinates = coordinates.slice();
         this.size = coordinates.length;

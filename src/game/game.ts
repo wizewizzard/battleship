@@ -1,23 +1,13 @@
-import {GameEvent, Stage} from "./_interfaces";
+import {GameBoard} from "./board/board";
+import {GameTurn} from "./_enums";
 import Player from "./player";
-import {GameBoard} from "./board/gameBoard";
-import StageManager from "./stage";
 
-class BattleShipGame {
-
-    init(): void {
-
-    }
-
-    start(): void {
-
-    }
+class BattleShipPlayer extends Player {
+    gameBoard: GameBoard;
 }
 
 export class GameState {
-    player1: Player;
-    gameBoard1: GameBoard;
-    player2: Player;
-    gameBoard2: GameBoard;
-    turn: number;
+    player: BattleShipPlayer;
+    opponent: BattleShipPlayer;
+    turn: GameTurn;
 }

@@ -14,5 +14,5 @@ export type ShotPayload = {
 
 export type ShipPlacementPayload = {
     player: Player;
-    coordinates: number[];
+    coordinates: Point2D[];
 }

@@ -1,6 +1,6 @@
 import {GameEvent} from "./_interfaces";
 import {UserEventType} from "./_enums";
-import {ReadyEventPayload, ShipPlacementPayload, ShotPayload} from "./_types";
+import {Point2D, ReadyEventPayload, ShipPlacementPayload, ShotPayload} from "./_types";
 import Player from "./player";
 
 export class ReadyEvent implements GameEvent {
@@ -22,7 +22,7 @@ export class ShipPlacementEvent implements GameEvent {
     payload: ShipPlacementPayload;
     type: UserEventType;
 
-    constructor(player: Player, coordinates: number[]) {
+    constructor(player: Player, coordinates: Point2D[]) {
         this.type = UserEventType.shot;
         this.payload = {player, coordinates};
     }

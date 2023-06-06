@@ -1,4 +1,4 @@
-import {GameBoard} from './board/gameBoard';
+import {GameBoard} from './board/board';
 import Ship from './ship';
 import {UserEventType} from "./_enums";
 
@@ -9,6 +9,8 @@ export interface GameBoardBuilder {
 
 export interface Stage {
     handleEvent(event: GameEvent): void;
+    isCompleted: () => boolean;
+    getNextStage(): Stage;
 }
 
 export interface GameEvent {

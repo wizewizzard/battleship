@@ -2,8 +2,8 @@ import Ship from "../ship";
 import config from "../../keys";
 import {FieldCellHit, FieldCellShip} from "../_enums";
 import {GameBoardBuilder} from "../_interfaces";
-import {GameBoard} from "./gameBoard";
-import {Cell} from "./gameBoard";
+import {GameBoard} from "./board";
+import {Cell} from "./board";
 import BoardValidationError from "../exception/BoardValidationError";
 import {Point2D} from "../_types";
 
@@ -79,7 +79,7 @@ export class GameBoardBuilderImpl implements GameBoardBuilder {
         return new GameBoard(this.board, this.ships);
     }
 
-    getIntermediateBoard() {
+    getIntermediateBoard(): GameBoard {
         return new GameBoard(this.board, this.ships);
     }
 

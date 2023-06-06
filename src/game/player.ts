@@ -1,7 +1,7 @@
 export default class Player {
-    private nickname;
+    nickname: string;
 
-    constructor(nickname) {
+    constructor(nickname: string) {
         this.nickname = nickname;
     }
 }

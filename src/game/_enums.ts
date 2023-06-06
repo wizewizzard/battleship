@@ -20,6 +20,7 @@ export enum ShipState {
     sunk
 }
 
-export enum ErrorType {
-    invalidPlacement
+export enum GameTurn {
+    player,
+    opponent
 }

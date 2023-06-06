@@ -1,5 +1,5 @@
 import {Point2D} from "../_types";
-import {GameBoard} from "./gameBoard";
+import {GameBoard} from "./board";
 import {FieldCellHit, FieldCellShip, ShipState} from "../_enums";
 
 export default class BoardShotHandler {
