@@ -1,5 +1,6 @@
 @import url('./default.css');
 @import url('./fonts.css');
+@import url('./board.css');
 
 body {
     background: #eeeeee;
