@@ -1,5 +1,5 @@
 import {GameBoardBuilder, GameEvent, Stage} from "./_interfaces";
-import {GameTurn, UserEventType} from "./_enums";
+import {GameTurn, EventType} from "./_enums";
 import {GameBoardBuilderImpl} from "./board/builder";
 import {ReadyEvent, ShipPlacementEvent, ShotEvent} from "./event";
 import {GameState} from "./game";
@@ -51,7 +51,7 @@ class PrepareStage implements Stage {
     }
 
     handleEvent(event: GameEvent): void {
-        if (event.type === UserEventType.readyButtonToggle) {
+        if (event.type === EventType.readyButtonToggle) {
             const readyEvent = event as ReadyEvent;
             if (readyEvent.payload.player === this.gameState.player) {
                 this.playerReady = !this.playerReady;
@@ -87,7 +87,7 @@ class ShipPlacementStage implements Stage {
     }
 
     handleEvent(event: ShipPlacementEvent | ReadyEvent): void {
-        if (event.type === UserEventType.shipPlacement) {
+        if (event.type === EventType.shipPlacement) {
             const shipPlacementEvent = event as ShipPlacementEvent;
             if (shipPlacementEvent.payload.player === this.gameState.player) {
                 const ship = new Ship(shipPlacementEvent.payload.coordinates);
@@ -98,7 +98,7 @@ class ShipPlacementStage implements Stage {
             } else {
                 console.warn(`Unknown player ${shipPlacementEvent.payload.player}`);
             }
-        } else if(event.type === UserEventType.readyButtonToggle) {
+        } else if(event.type === EventType.readyButtonToggle) {
             const readyEvent = event as ReadyEvent;
             if (readyEvent.payload.player === this.gameState.player) {
                 try {
@@ -126,14 +126,11 @@ class PlayStage implements Stage {
 
     constructor(gameState: GameState) {
         this.gameState = gameState;
-        this.playerBoardShotHandler = new BoardShotHandler(this.gameState.player.gameBoard,
-            () => {}, () => {}, () => {});
-        this.opponentBoardShotHandler = new BoardShotHandler(this.gameState.opponent.gameBoard,
-            () => {}, () => {}, () => {});
+
     }
 
     handleEvent(event: ShotEvent): void {
-        if (event.type === UserEventType.shot) {
+        if (event.type === EventType.shot) {
             const shotEvent = event as ShotEvent;
             if ( this.gameState.turn === GameTurn.player && shotEvent.payload.player === this.gameState.player.player) {
                 this.playerBoardShotHandler.handleShot({x: shotEvent.payload.x, y: shotEvent.payload.y});

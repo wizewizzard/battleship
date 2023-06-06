@@ -1,7 +1,10 @@
-export enum UserEventType {
+export enum EventType {
     readyButtonToggle,
     shipPlacement,
-    shot
+    shot,
+    shipHit,
+    shipDestroyed,
+    fleetDestroyed
 }
 
 export enum FieldCellHit {
