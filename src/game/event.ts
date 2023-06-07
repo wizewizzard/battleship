@@ -2,10 +2,16 @@ import {GameEvent} from "./_interfaces";
 import {EventType} from "./_enums";
 import {Point2D, ReadyEventPayload, ShipPlacementPayload, ShotPayload} from "./_types";
 import Player from "./player";
+import {BattleShipPlayer} from "./game";
 
 export class ReadyEvent implements GameEvent {
     readonly type: EventType;
     readonly payload: ReadyEventPayload;
+
+    constructor(player: BattleShipPlayer) {
+        this.type = EventType.readyButtonToggle;
+        this.payload = {player};
+    }
 }
 
 export class ShotEvent implements GameEvent {

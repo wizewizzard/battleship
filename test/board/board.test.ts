@@ -119,7 +119,7 @@ describe('Board builder tests', () => {
         const shipAtCoordinate1 = board.getShipAtCoordinate({x: 0, y: 1});
         const shipAtCoordinate2 = board.getShipAtCoordinate({x:2, y: 0});
 
-        _.isEqual(shipAtCoordinate1, ship1);
-        _.isEqual(shipAtCoordinate2, ship2);
+        expect(_.isEqual(shipAtCoordinate1, ship1)).to.equal(true);
+        expect(_.isEqual(shipAtCoordinate2, ship2)).to.equal(true);
     });
 });
