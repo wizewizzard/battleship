@@ -16,6 +16,7 @@ export class GameState {
     opponent: BattleShipPlayer;
     turn: GameTurn;
     winner: BattleShipPlayer;
+    currentStage: string;
 
     constructor(player: BattleShipPlayer, opponent: BattleShipPlayer) {
         this.player = player;

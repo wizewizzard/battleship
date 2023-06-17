@@ -3,6 +3,7 @@ import {GameBoardBuilderImpl} from '../../src/game/board/builder';
 import 'mocha';
 import Ship from "../../src/game/ship";
 import * as _ from "lodash";
+import {placement1} from "../util/placement";
 
 describe('Board builder tests', () => {
     it('Should place a ship', () => {
@@ -70,16 +71,7 @@ describe('Board builder tests', () => {
      */
     it('Should build a board', () => {
         const builder = new GameBoardBuilderImpl();
-        builder.placeShip(new Ship([{x: 0, y: 0}, {x: 0, y: 1}]));
-        builder.placeShip(new Ship([{x: 2, y: 0}, {x: 3, y: 0}, {x: 4, y: 0}, {x: 5, y: 0}]));
-        builder.placeShip(new Ship([{x: 9, y: 0}]));
-        builder.placeShip(new Ship([{x: 7, y: 1}]));
-        builder.placeShip(new Ship([{x: 0, y: 3}, {x: 1, y: 3}, {x: 2, y: 3}]));
-        builder.placeShip(new Ship([{x: 6, y: 4}, {x: 6, y: 5}]));
-        builder.placeShip(new Ship([{x: 9, y: 4}]));
-        builder.placeShip(new Ship([{x: 1, y: 6}]));
-        builder.placeShip(new Ship([{x: 7, y: 7}, {x:8, y: 7}, {x:9, y: 7}]));
-        builder.placeShip(new Ship([{x: 0, y: 8}, {x:0, y: 8}]));
+        placement1.forEach(s => builder.placeShip(s));
 
         expect(() => builder.build()).not.to.throw()
     });

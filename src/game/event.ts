@@ -8,7 +8,7 @@ export class ReadyEvent implements GameEvent {
     readonly payload: ReadyEventPayload;
 
     constructor(player: BattleShipPlayer) {
-        this.type = EventType.readyButtonToggle;
+        this.type = EventType.readyToggle;
         this.payload = {player};
     }
 }
@@ -28,7 +28,7 @@ export class ShipPlacementEvent implements GameEvent {
     type: EventType;
 
     constructor(player: BattleShipPlayer, coordinates: Point2D[]) {
-        this.type = EventType.shot;
+        this.type = EventType.shipPlacement;
         this.payload = {player, coordinates};
     }
 }

@@ -6,7 +6,7 @@ import {GameState} from "./game";
 import BoardShotHandler from "./board/shooting";
 import Ship from "./ship";
 
-export default class GameStageController {
+export default class GameStageManager {
     private currentStage: Stage;
     private readonly gameState: GameState;
 
@@ -16,14 +16,19 @@ export default class GameStageController {
     }
 
     initWithDefaultStage() {
-        this.currentStage = new PrepareStage(this.gameState);
+        this.setStage(new PrepareStage(this.gameState));
     }
 
     dispatch(event: GameEvent) {
         this.currentStage.handleEvent(event);
         if (this.currentStage.isCompleted()) {
-            this.currentStage = this.currentStage.getNextStage();
+            this.setStage(this.currentStage.getNextStage());
         }
+    }
+
+    private setStage(stage: Stage) {
+        this.currentStage = stage;
+        this.gameState.currentStage = this.currentStage.toString();
     }
 }
 
@@ -45,7 +50,7 @@ class PrepareStage implements Stage {
     }
 
     handleEvent(event: GameEvent): void {
-        if (event.type === EventType.readyButtonToggle) {
+        if (event.type === EventType.readyToggle) {
             const readyEvent = event as ReadyEvent;
             if (readyEvent.payload.player === this.gameState.player) {
                 this.playerReady = !this.playerReady;
@@ -56,11 +61,14 @@ class PrepareStage implements Stage {
             }
         }
     }
+
     getNextStage(): Stage {
         if (!this.isCompleted()) throw new Error("Stage is not completed yet");
-        this.gameState.player.ready = this.playerReady;
-        this.gameState.opponent.ready = this.opponentReady;
         return new ShipPlacementStage(this.gameState);
+    }
+
+    toString() {
+        return "Prepare Stage";
     }
 }
 
@@ -71,15 +79,14 @@ class PrepareStage implements Stage {
 class ShipPlacementStage implements Stage {
     private readonly gameState: GameState;
     private playerGameBoardBuilder: GameBoardBuilder;
-    private oppponentGameBoardBuilder: GameBoardBuilder;
+    private opponentGameBoardBuilder: GameBoardBuilder;
     private playerReady: boolean;
     private opponentReady: boolean;
-    private readonly onComplete: () => void;
 
     constructor(gameState: GameState) {
         this.gameState = gameState;
         this.playerGameBoardBuilder = new GameBoardBuilderImpl();
-        this.oppponentGameBoardBuilder = new GameBoardBuilderImpl();
+        this.opponentGameBoardBuilder = new GameBoardBuilderImpl();
     }
 
     isCompleted(): boolean {
@@ -98,7 +105,7 @@ class ShipPlacementStage implements Stage {
             } else {
                 console.warn(`Unknown player ${shipPlacementEvent.payload.player}`);
             }
-        } else if(event.type === EventType.readyButtonToggle) {
+        } else if(event.type === EventType.readyToggle) {
             const readyEvent = event as ReadyEvent;
             if (readyEvent.payload.player === this.gameState.player) {
                 this.gameState.player.gameBoard = this.playerGameBoardBuilder.build();
@@ -116,6 +123,10 @@ class ShipPlacementStage implements Stage {
         if (!this.isCompleted()) throw '';
         return new PlayStage(this.gameState);
     }
+
+    toString() {
+        return "Ship placement Stage"
+    }
 }
 
 /**
@@ -129,7 +140,6 @@ class PlayStage implements Stage {
 
     constructor(gameState: GameState) {
         this.gameState = gameState;
-
     }
 
     handleEvent(event: ShotEvent): void {
@@ -154,6 +164,10 @@ class PlayStage implements Stage {
     getNextStage(): Stage {
         return new GameOverStage();
     }
+
+    toString() {
+        return "Battle Stage"
+    }
 }
 
 class GameOverStage implements Stage {
@@ -167,5 +181,9 @@ class GameOverStage implements Stage {
 
     isCompleted(): boolean {
         return false;
+    }
+
+    toString() {
+        return "Game over Stage"
     }
 }

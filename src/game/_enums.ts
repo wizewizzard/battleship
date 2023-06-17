@@ -1,5 +1,5 @@
 export enum EventType {
-    readyButtonToggle,
+    readyToggle,
     shipPlacement,
     shot,
     shipHit,
