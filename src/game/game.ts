@@ -1,17 +1,12 @@
 import {GameBoard} from "./board/board";
 import {GameTurn} from "./_enums";
-import Player from "./player";
 
-export class BattleShipPlayer extends Player {
+export class BattleShipPlayer {
+    nickname:string;
     gameBoard: GameBoard;
-    ready: boolean;
 
-    constructor(nickname: string) {
-        super(nickname);
-    }
-
-    constructor(nickname: string, gameBoard: GameBoard) {
-        super(nickname);
+    constructor(nickname: string, gameBoard?: GameBoard) {
+        this.nickname = nickname;
         this.gameBoard = gameBoard;
     }
 }

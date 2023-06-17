@@ -1,25 +1,25 @@
-import Player from "./player";
 import Ship from "./ship";
+import {BattleShipPlayer} from "./game";
 
 export type Point2D = {x:number, y: number};
 
 export type ReadyEventPayload = {
-    player: Player;
+    player: BattleShipPlayer;
 }
 
 export type ShotPayload = {
-    player: Player;
+    player: BattleShipPlayer;
     x: number;
     y: number;
 }
 
 export type ShipPlacementPayload = {
-    player: Player;
+    player: BattleShipPlayer;
     coordinates: Point2D[];
 }
 
 export type ShipHitPayload = {
-    player: Player;
+    player: BattleShipPlayer;
     coordinates: Point2D[];
     ship: Ship;
 }

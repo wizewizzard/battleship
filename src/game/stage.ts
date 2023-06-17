@@ -5,7 +5,6 @@ import {ReadyEvent, ShipPlacementEvent, ShotEvent} from "./event";
 import {GameState} from "./game";
 import BoardShotHandler from "./board/shooting";
 import Ship from "./ship";
-import Player from "./player";
 
 export default class GameStageController {
     private currentStage: Stage;
