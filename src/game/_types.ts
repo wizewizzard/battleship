@@ -9,13 +9,12 @@ export type ReadyEventPayload = {
 
 export type ShotPayload = {
     player: BattleShipPlayer;
-    x: number;
-    y: number;
+    coordinate: Point2D;
 }
 
 export type ShipPlacementPayload = {
     player: BattleShipPlayer;
-    coordinates: Point2D[];
+    ship: Ship;
 }
 
 export type ShipHitPayload = {

@@ -1,10 +1,9 @@
 import {GameBoardBuilder, GameEvent, Stage} from "./_interfaces";
-import {GameTurn, EventType} from "./_enums";
+import {EventType, GameTurn} from "./_enums";
 import {GameBoardBuilderImpl} from "./board/builder";
 import {ReadyEvent, ShipPlacementEvent, ShotEvent} from "./event";
 import {GameState} from "./game";
 import BoardShotHandler from "./board/shooting";
-import Ship from "./ship";
 
 export default class GameStageManager {
     private currentStage: Stage;
@@ -96,12 +95,11 @@ class ShipPlacementStage implements Stage {
     handleEvent(event: ShipPlacementEvent | ReadyEvent): void {
         if (event.type === EventType.shipPlacement) {
             const shipPlacementEvent = event as ShipPlacementEvent;
+            const ship = shipPlacementEvent.payload.ship;
             if (shipPlacementEvent.payload.player === this.gameState.player) {
-                const ship = new Ship(shipPlacementEvent.payload.coordinates);
                 this.playerGameBoardBuilder.placeShip(ship);
-            } else if (shipPlacementEvent.payload.player === this.gameState.player) {
-                const ship = new Ship(shipPlacementEvent.payload.coordinates);
-                this.playerGameBoardBuilder.placeShip(ship);
+            } else if (shipPlacementEvent.payload.player === this.gameState.opponent) {
+                this.opponentGameBoardBuilder.placeShip(ship);
             } else {
                 console.warn(`Unknown player ${shipPlacementEvent.payload.player}`);
             }
@@ -140,16 +138,25 @@ class PlayStage implements Stage {
 
     constructor(gameState: GameState) {
         this.gameState = gameState;
+        this.gameState.turn = GameTurn.player;
+        this.playerBoardShotHandler = new BoardShotHandler(gameState.player.gameBoard);
+        this.opponentBoardShotHandler = new BoardShotHandler(gameState.opponent.gameBoard);
     }
 
     handleEvent(event: ShotEvent): void {
         if (event.type === EventType.shot) {
             const shotEvent = event as ShotEvent;
             if ( this.gameState.turn === GameTurn.player && shotEvent.payload.player === this.gameState.player) {
-                this.playerBoardShotHandler.handleShot({x: shotEvent.payload.x, y: shotEvent.payload.y});
+                this.opponentBoardShotHandler.handleShot({
+                    x: shotEvent.payload.coordinate.x,
+                    y: shotEvent.payload.coordinate.y
+                });
                 this.gameState.turn = GameTurn.opponent;
             } else if (this.gameState.turn === GameTurn.opponent && shotEvent.payload.player === this.gameState.opponent) {
-                this.opponentBoardShotHandler.handleShot({x: shotEvent.payload.x, y: shotEvent.payload.y});
+                this.playerBoardShotHandler.handleShot({
+                    x: shotEvent.payload.coordinate.x,
+                    y: shotEvent.payload.coordinate.y
+                });
                 this.gameState.turn = GameTurn.player;
             } else {
                 throw 'You can not perform this action';

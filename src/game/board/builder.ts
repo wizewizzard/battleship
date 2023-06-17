@@ -25,8 +25,6 @@ class FieldBuilderValidator {
     }
 
     validatePlacement(ship: Ship): boolean {
-
-
         return !ship.coordinates
             .some(p => {
                 if (p.x < 0 || p.x >= config.boardSize) return true;

@@ -56,19 +56,6 @@ describe('Board builder tests', () => {
         expect(() =>  builder.placeShip(ship3)).to.throw('Ship cannot be placed here');
     });
 
-    /**
-     *   0 1 2 3 4 5 6 7 8 9
-     * 0 *   * * * *       *
-     * 1 *             *
-     * 2
-     * 3 * * *
-     * 4             *     *
-     * 5             *
-     * 6   *
-     * 7               * * *
-     * 8 *
-     * 9 *
-     */
     it('Should build a board', () => {
         const builder = new GameBoardBuilderImpl();
         placement1.forEach(s => builder.placeShip(s));
