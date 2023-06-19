@@ -28,7 +28,7 @@ export default class BoardShotHandler {
                 if (onShipDestruction) onShipDestruction(hitShip);
             }
             if (this.gameBoard.ships.filter(s => s.state !== ShipState.sunk).length === 0) {
-                onFleetDestruction();
+                if (onFleetDestruction) onFleetDestruction();
             }
         } else {
             if (onMiss) onMiss();

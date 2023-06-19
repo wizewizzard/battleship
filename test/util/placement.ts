@@ -23,7 +23,7 @@ export const placement1 = [
     new Ship([{x: 9, y: 4}]),
     new Ship([{x: 1, y: 6}]),
     new Ship([{x: 7, y: 7}, {x:8, y: 7}, {x:9, y: 7}]),
-    new Ship([{x: 0, y: 8}, {x:0, y: 8}])
+    new Ship([{x: 0, y: 8}, {x:0, y: 9}])
 ];
 
 /**
