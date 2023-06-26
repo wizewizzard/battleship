@@ -1,4 +1,8 @@
+import Keys from "../../src/keys";
 import Ship from "../../src/game/ship";
+import { Point2D } from "../../src/game/_types";
+import { shuffle } from "./utils";
+import { GameBoard } from "../../src/game/board/board";
 
 /**
  *   0 1 2 3 4 5 6 7 8 9
@@ -51,3 +55,52 @@ export const placement2 = [
     new Ship([{x: 4, y: 8}, {x: 5, y: 8}, {x:6, y: 8}]),
     new Ship([{x: 9, y: 9}])
 ];
+
+export function getTestShooter(gameBoard: GameBoard) {
+    const shipsCoords = [...gameBoard.ships].map(s => s.coordinates).flat();
+    let coordinatesHit: Point2D[] = [];
+    let coordinatesMiss: Point2D[] = [];
+    
+    for (let row = 0; row < Keys.boardSize; row ++) {
+        for (let col = 0; col < Keys.boardSize; col ++) {
+            if (shipsCoords.findIndex(c => c.x === col && c.y === row) === -1) {
+                coordinatesMiss.push({x: col, y: row});
+            } else {
+                coordinatesHit.push({x: col, y: row});
+            }
+        }
+    }
+    coordinatesHit = shuffle(coordinatesHit);
+    coordinatesMiss = shuffle(coordinatesMiss);
+
+    const hit = function*(): Generator<Point2D> {
+        for (const c of coordinatesHit) {
+            yield c;
+        }
+    }();
+    const miss = function*(): Generator<Point2D> {
+        for (const c of coordinatesMiss) {
+            yield c;
+        }
+    }();
+    return [(chance = 1): Point2D => {
+        if (Math.random() < chance) {
+            const result = hit.next();
+            if (!result.done) {
+                return result.value;
+            } else {
+                throw new Error('Not more hits can be performed');
+            }
+        } else {
+            return this.miss();
+        }
+    },
+    () => {
+        const result = miss.next();
+        if (!result.done) {
+            return result.value;
+        } else {
+            throw new Error('Not more misses can be performed');
+        }
+    }];
+}
