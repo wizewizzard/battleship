@@ -7,12 +7,6 @@ export interface GameBoardBuilder {
     build(): GameBoard;
 }
 
-export interface Stage {
-    handleEvent(event: GameEvent): void;
-    isCompleted: () => boolean;
-    getNextStage(): Stage;
-}
-
 export interface GameEvent {
     type: EventType;
 }

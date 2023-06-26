@@ -1,4 +1,4 @@
-import GameStageManager from "../../src/game/stage";
+import GameStageManager from "../../src/game/stage/stage-manager";
 import {BattleShipPlayer, GameState} from "../../src/game/game";
 import {ReadyEvent, ShipPlacementEvent, ShotEvent} from "../../src/game/event";
 import {expect} from "chai";

@@ -1,8 +1,8 @@
 import BoardShotHandler from "../../src/game/board/shooting";
-import {GameBoardBuilderImpl} from "../../src/game/board/builder";
-import {placement1} from "../util/placement";
-import {assert} from "chai";
-import {FieldCellHit, FieldCellShip, ShipState} from "../../src/game/_enums";
+import { GameBoardBuilderImpl } from "../../src/game/board/builder";
+import { getTestShooter, placement1 } from "../util/placement";
+import { assert } from "chai";
+import { FieldCellHit, FieldCellShip, ShipState } from "../../src/game/_enums";
 import Keys from "../../src/keys";
 
 describe("Shot handler test", () => {
@@ -17,9 +17,9 @@ describe("Shot handler test", () => {
         const shotHandler = new BoardShotHandler(gameBoard);
 
         [...ship1.coordinates, ...ship2.coordinates].forEach(c => shotHandler.handleShot(c,
-            () => shipsHitCallbackCount ++,
-                () => {},
-                () => shipsDestroyedCallbackCount ++)
+            () => shipsHitCallbackCount++,
+            () => { },
+            () => shipsDestroyedCallbackCount++)
         );
 
         const shipsToBeSunk = gameBoard.ships.filter(s => s.state === ShipState.sunk);
@@ -40,12 +40,12 @@ describe("Shot handler test", () => {
         const cellsToHit = placement1.filter(s => s.size > 1)
             .map(s => s.coordinates[0]);
         cellsToHit.forEach(c => shotHandler.handleShot(c,
-            () => shipsHitCallbackCount ++,
-                () => {},
-                (s) => {
-                    console.log(s);
-                    shipsDestroyedCallbackCount ++
-                })
+            () => shipsHitCallbackCount++,
+            () => { },
+            (s) => {
+                console.log(s);
+                shipsDestroyedCallbackCount++
+            })
         );
 
         assert.equal(shipsHitCallbackCount, 6);
@@ -61,9 +61,9 @@ describe("Shot handler test", () => {
         const shotHandler = new BoardShotHandler(gameBoard);
 
         [...placement1].map(s => s.coordinates).flat().forEach(c => shotHandler.handleShot(c,
-            () => {},
-            () => {},
-            () => {},
+            () => { },
+            () => { },
+            () => { },
             () => fleetDestroyed = true));
 
         assert.isTrue(fleetDestroyed);
@@ -80,13 +80,13 @@ describe("Shot handler test", () => {
         const shotHandler = new BoardShotHandler(gameBoard);
         const shipsCoords = [...placement1].map(s => s.coordinates).flat();
 
-        for (let row = 0; row < Keys.boardSize; row ++) {
-            for (let col = 0; col < Keys.boardSize; col ++) {
+        for (let row = 0; row < Keys.boardSize; row++) {
+            for (let col = 0; col < Keys.boardSize; col++) {
                 if (shipsCoords.findIndex(c => c.x === col && c.y === row) === -1) {
-                    shotHandler.handleShot({x: col, y: row}, 
-                        () => shipsHitCallbackCount ++,
-                        () => missCallbackCount ++,
-                        () => shipsDestroyedCallbackCount ++,
+                    shotHandler.handleShot({ x: col, y: row },
+                        () => shipsHitCallbackCount++,
+                        () => missCallbackCount++,
+                        () => shipsDestroyedCallbackCount++,
                         () => fleetDestroyed = true);
                 }
             }

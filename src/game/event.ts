@@ -36,5 +36,4 @@ export class ShipPlacementEvent implements GameEvent {
 
 export class ShipHitEvent implements GameEvent{
     type: EventType;
-
 }

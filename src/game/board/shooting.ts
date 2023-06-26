@@ -3,7 +3,7 @@ import {GameBoard} from "./board";
 import {FieldCellHit, FieldCellShip, ShipState} from "../_enums";
 import Ship from "../ship";
 
-export default class BoardShotHandler {
+export class BoardShotHandler {
     private readonly gameBoard: GameBoard;
 
     constructor(gameBoard: GameBoard) {

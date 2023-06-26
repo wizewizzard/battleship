@@ -1,7 +1,7 @@
 import {Point2D} from "./_types";
 import * as _ from "lodash";
-import ShipCreationError from "./exception/ShipCreationError";
 import {ShipState} from "./_enums";
+import {ShipCreationException} from "./battleship.exception";
 
 
 export default class Ship {
@@ -10,7 +10,7 @@ export default class Ship {
     state: ShipState;
 
     constructor(coordinates: Point2D[]) {
-        if (coordinates.length <= 0) throw new ShipCreationError('Ship must take at least 1 cell');
+        if (coordinates.length <= 0) throw new ShipCreationException('Ship must take at least 1 cell');
         this.coordinates = coordinates.slice();
         this.size = coordinates.length;
         this.state = ShipState.intact;
