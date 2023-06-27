@@ -4,7 +4,8 @@ export enum EventType {
     shot,
     shipHit,
     shipDestroyed,
-    fleetDestroyed
+    fleetDestroyed,
+    blank
 }
 
 export enum FieldCellHit {

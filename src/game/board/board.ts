@@ -1,7 +1,7 @@
 import {GameBoardBuilder} from '../_interfaces';
 import Ship from "../ship";
 import {FieldCellHit, FieldCellShip} from "../_enums";
-import {Point2D} from "../_types";
+import {Point2D} from "../_interfaces";
 
 export type Cell = {
     ship: FieldCellShip;

@@ -1,4 +1,4 @@
-import {Point2D} from "../_types";
+import {Point2D} from "../_interfaces";
 import {GameBoard} from "./board";
 import {FieldCellHit, FieldCellShip, ShipState} from "../_enums";
 import Ship from "../ship";

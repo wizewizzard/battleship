@@ -10,3 +10,8 @@ export interface GameBoardBuilder {
 export interface GameEvent {
     type: EventType;
 }
+
+export interface Point2D {
+    x: number;
+    y: number;
+}

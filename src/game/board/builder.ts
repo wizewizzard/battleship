@@ -4,7 +4,7 @@ import {FieldCellHit, FieldCellShip} from "../_enums";
 import {GameBoardBuilder} from "../_interfaces";
 import {GameBoard} from "./board";
 import {Cell} from "./board";
-import {Point2D} from "../_types";
+import {Point2D} from "../_interfaces";
 import { BoardValidationError as InvalidBoardException } from "../battleship.exception";
 
 class FieldBuilderValidator {

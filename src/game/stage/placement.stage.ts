@@ -1,5 +1,5 @@
 import { EventType } from "../_enums";
-import { GameBoardBuilder } from "../_interfaces";
+import { GameBoardBuilder, GameEvent } from "../_interfaces";
 import { GameBoardBuilderImpl } from "../board/builder";
 import { ReadyEvent, ShipPlacementEvent } from "../event";
 import { GameState } from "../game";
@@ -25,7 +25,7 @@ export class ShipPlacementStage implements Stage {
         return this.playerReady && this.opponentReady;
     }
 
-    handleEvent(event: ShipPlacementEvent | ReadyEvent): void {
+    handleEvent(event: GameEvent): void {
         if (event.type === EventType.shipPlacement) {
             const shipPlacementEvent = event as ShipPlacementEvent;
             const ship = shipPlacementEvent.payload.ship;

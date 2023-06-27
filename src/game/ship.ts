@@ -1,4 +1,4 @@
-import {Point2D} from "./_types";
+import {Point2D} from "./_interfaces";
 import * as _ from "lodash";
 import {ShipState} from "./_enums";
 import {ShipCreationException} from "./battleship.exception";

@@ -1,9 +1,9 @@
-import BoardShotHandler from "../../src/game/board/shooting";
 import { GameBoardBuilderImpl } from "../../src/game/board/builder";
 import { getTestShooter, placement1 } from "../util/placement";
-import { assert } from "chai";
+import { assert, expect } from "chai";
 import { FieldCellHit, FieldCellShip, ShipState } from "../../src/game/_enums";
 import Keys from "../../src/keys";
+import { BoardShotHandler } from "../../src/game/board/shooting";
 
 describe("Shot handler test", () => {
     it("Should destroy the ship", () => {
@@ -47,6 +47,8 @@ describe("Shot handler test", () => {
                 shipsDestroyedCallbackCount++
             })
         );
+
+        expect(shipsHitCallbackCount).to.be.equal(6);
 
         assert.equal(shipsHitCallbackCount, 6);
         assert.equal(shipsDestroyedCallbackCount, 0);
@@ -96,5 +98,18 @@ describe("Shot handler test", () => {
         assert.equal(missCallbackCount, 80);
         assert.equal(shipsDestroyedCallbackCount, 0);
         assert.isFalse(fleetDestroyed);
+    });
+
+    it("T", () => {
+        const builder = new GameBoardBuilderImpl();
+        placement1.forEach(s => builder.placeShip(s));
+        const gameBoard = builder.build();
+        const testShooter = getTestShooter(gameBoard);
+
+        for ( let i = 0; i < 21; i ++) {
+            // const point = testShooter.hit();
+        }
+
+
     });
 });

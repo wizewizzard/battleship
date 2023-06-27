@@ -11,9 +11,12 @@ export class DefaultStage implements Stage {
         console.log('Blank stage is active. Do nothing.')
     }
 
-    isCompleted: () => true;
+    isCompleted() {
+        return true;
+    }
 
     getNextStage(): Stage {
+        console.log('aaaa');
         return new PrepareStage(this.gameState);
     }
 }

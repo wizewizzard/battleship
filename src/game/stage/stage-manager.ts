@@ -8,8 +8,9 @@ export default class GameStageManager {
     constructor(private readonly gameState: GameState,
         private currentStage?: Stage) {
         if (!currentStage) {
-            this.currentStage = this.getDefaultStage();
+            currentStage = this.getDefaultStage();
         }
+        this.switchStage(currentStage);
     }
     
     dispatch(event: GameEvent) {

@@ -1,8 +1,8 @@
 import Keys from "../../src/keys";
 import Ship from "../../src/game/ship";
-import { Point2D } from "../../src/game/_types";
 import { shuffle } from "./utils";
 import { GameBoard } from "../../src/game/board/board";
+import { Point2D } from "../../src/game/_interfaces";
 
 /**
  *   0 1 2 3 4 5 6 7 8 9
@@ -56,7 +56,7 @@ export const placement2 = [
     new Ship([{x: 9, y: 9}])
 ];
 
-export function getTestShooter(gameBoard: GameBoard) {
+export function getTestShooter(gameBoard: GameBoard): [(chance?: number) => Point2D, () => any  ] {
     const shipsCoords = [...gameBoard.ships].map(s => s.coordinates).flat();
     let coordinatesHit: Point2D[] = [];
     let coordinatesMiss: Point2D[] = [];

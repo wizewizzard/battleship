@@ -1,39 +1,18 @@
 import {GameEvent} from "./_interfaces";
 import {EventType} from "./_enums";
-import {Point2D, ReadyEventPayload, ShipPlacementPayload, ShotPayload} from "./_types";
-import {BattleShipPlayer} from "./game";
-import Ship from "./ship";
+import {Point2D, ReadyEventPayload, ShipPlacementPayload, ShotPayload} from "./event-payload.interface";
 
-export class ReadyEvent implements GameEvent {
-    readonly type: EventType;
+export interface ReadyEvent extends GameEvent {
     readonly payload: ReadyEventPayload;
-
-    constructor(player: BattleShipPlayer) {
-        this.type = EventType.readyToggle;
-        this.payload = {player};
-    }
 }
 
-export class ShotEvent implements GameEvent {
-    readonly type: EventType;
+export interface ShotEvent extends GameEvent {
     readonly payload: ShotPayload;
-
-    constructor(playerWhoShoots: BattleShipPlayer, coordinate: Point2D) {
-        this.type = EventType.shot;
-        this.payload = {player: playerWhoShoots, coordinate};
-    }
 }
 
-export class ShipPlacementEvent implements GameEvent {
+export interface ShipPlacementEvent extends GameEvent {
     payload: ShipPlacementPayload;
-    type: EventType;
-
-    constructor(player: BattleShipPlayer, ship: Ship) {
-        this.type = EventType.shipPlacement;
-        this.payload = {player, ship};
-    }
 }
 
-export class ShipHitEvent implements GameEvent{
-    type: EventType;
-}
+// export interface ShipHitEvent extends GameEvent<> {
+// }
