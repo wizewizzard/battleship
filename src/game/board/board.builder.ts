@@ -1,11 +1,11 @@
-import Ship from "../ship";
+import {Ship} from "./ship.entity";
 import config from "../../keys";
 import {FieldCellHit, FieldCellShip} from "../_enums";
-import {GameBoardBuilder} from "../_interfaces";
-import {GameBoard} from "./board";
-import {Cell} from "./board";
+import {GameBoard} from "./board.entity";
+import {Cell} from "./board.entity";
 import {Point2D} from "../_interfaces";
 import { BoardValidationError as InvalidBoardException } from "../battleship.exception";
+import { GameBoardBuilder } from "./builder.interface";
 
 class FieldBuilderValidator {
     private readonly board: Cell[][];

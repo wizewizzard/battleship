@@ -1,7 +1,8 @@
 import { EventType } from "../_enums";
-import { GameBoardBuilder, GameEvent } from "../_interfaces";
-import { GameBoardBuilderImpl } from "../board/builder";
-import { ReadyEvent, ShipPlacementEvent } from "../event";
+import { GameBoardBuilder } from "../board/builder.interface";
+import { GameBoardBuilderImpl } from "../board/board.builder";
+import { GameEvent, ReadyEvent, ShipPlacementEvent } from "../event/event";
+import { EventEmitter } from "../event/event-emitter";
 import { GameState } from "../game";
 import { PlayStage } from "./play.stage";
 import { Stage } from "./stage.interface";
@@ -16,7 +17,8 @@ export class ShipPlacementStage implements Stage {
     private playerReady: boolean;
     private opponentReady: boolean;
 
-    constructor(private readonly gameState: GameState) {
+    constructor(private readonly gameState: GameState,
+        private readonly eventEmitter: EventEmitter) {
         this.playerGameBoardBuilder = new GameBoardBuilderImpl();
         this.opponentGameBoardBuilder = new GameBoardBuilderImpl();
     }
@@ -52,7 +54,7 @@ export class ShipPlacementStage implements Stage {
 
     getNextStage(): Stage {
         if (!this.isCompleted()) throw '';
-        return new PlayStage(this.gameState);
+        return new PlayStage(this.gameState, this.eventEmitter);
     }
 
     toString() {

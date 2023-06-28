@@ -1,10 +1,9 @@
-import {Point2D} from "./_interfaces";
+import {Point2D} from "../_interfaces";
 import * as _ from "lodash";
-import {ShipState} from "./_enums";
-import {ShipCreationException} from "./battleship.exception";
+import {ShipCreationException} from "../battleship.exception";
+import {ShipState} from "./ship-state.enum";
 
-
-export default class Ship {
+export class Ship {
     readonly coordinates: Point2D[];
     readonly size: number;
     state: ShipState;

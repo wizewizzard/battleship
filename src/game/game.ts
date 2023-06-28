@@ -1,4 +1,4 @@
-import {GameBoard} from "./board/board";
+import {GameBoard} from "./board/board.entity";
 import {GameTurn} from "./_enums";
 
 export class BattleShipPlayer {

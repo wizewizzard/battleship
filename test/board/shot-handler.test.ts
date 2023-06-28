@@ -1,9 +1,10 @@
-import { GameBoardBuilderImpl } from "../../src/game/board/builder";
+import { GameBoardBuilderImpl } from "../../src/game/board/board.builder";
 import { getTestShooter, placement1 } from "../util/placement";
 import { assert, expect } from "chai";
-import { FieldCellHit, FieldCellShip, ShipState } from "../../src/game/_enums";
+import { FieldCellHit, FieldCellShip} from "../../src/game/_enums";
 import Keys from "../../src/keys";
-import { BoardShotHandler } from "../../src/game/board/shooting";
+import { BoardShotHandler } from "../../src/game/board/shot-handler";
+import { ShipState } from "../../src/game/board/ship-state.enum";
 
 describe("Shot handler test", () => {
     it("Should destroy the ship", () => {

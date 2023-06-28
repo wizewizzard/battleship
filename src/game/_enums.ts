@@ -18,12 +18,6 @@ export enum FieldCellShip {
     ship
 }
 
-export enum ShipState {
-    intact,
-    hit,
-    sunk
-}
-
 export enum GameTurn {
     player,
     opponent

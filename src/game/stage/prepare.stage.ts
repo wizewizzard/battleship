@@ -1,6 +1,6 @@
 import { EventType } from "../_enums";
-import { GameEvent } from "../_interfaces";
-import { ReadyEvent } from "../event";
+import { GameEvent, ReadyEvent } from "../event/event";
+import { EventEmitter } from "../event/event-emitter";
 import { GameState } from "../game";
 import { ShipPlacementStage } from "./placement.stage";
 import { Stage } from "./stage.interface";
@@ -13,7 +13,8 @@ export class PrepareStage implements Stage {
     private playerReady: boolean;
     private opponentReady: boolean;
 
-    constructor(private readonly gameState: GameState) {
+    constructor(private readonly gameState: GameState,
+        private readonly eventEmitter: EventEmitter) {
     }
 
     isCompleted(): boolean {
@@ -35,7 +36,7 @@ export class PrepareStage implements Stage {
 
     getNextStage(): Stage {
         if (!this.isCompleted()) throw new Error("Stage is not completed yet");
-        return new ShipPlacementStage(this.gameState);
+        return new ShipPlacementStage(this.gameState, this.eventEmitter);
     }
 
     toString() {

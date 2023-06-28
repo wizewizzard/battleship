@@ -1,7 +1,7 @@
 import Keys from "../../src/keys";
-import Ship from "../../src/game/ship";
+import {Ship} from "../../src/game/board/ship.entity";
 import { shuffle } from "./utils";
-import { GameBoard } from "../../src/game/board/board";
+import { GameBoard } from "../../src/game/board/board.entity";
 import { Point2D } from "../../src/game/_interfaces";
 
 /**

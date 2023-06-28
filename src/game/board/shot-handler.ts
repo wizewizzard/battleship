@@ -1,7 +1,8 @@
 import {Point2D} from "../_interfaces";
-import {GameBoard} from "./board";
-import {FieldCellHit, FieldCellShip, ShipState} from "../_enums";
-import Ship from "../ship";
+import {GameBoard} from "./board.entity";
+import {FieldCellHit, FieldCellShip} from "../_enums";
+import {ShipState} from "./ship-state.enum";
+import {Ship} from "./ship.entity";
 
 export class BoardShotHandler {
     private readonly gameBoard: GameBoard;

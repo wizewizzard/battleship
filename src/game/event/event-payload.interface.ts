@@ -1,5 +1,5 @@
-import Ship from "./ship";
-import { BattleShipPlayer } from "./game";
+import {Ship} from "../board/ship.entity";
+import { BattleShipPlayer } from "../game";
 
 export interface Point2D { x: number, y: number };
 

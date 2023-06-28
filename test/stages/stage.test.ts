@@ -1,17 +1,33 @@
 import GameStageManager from "../../src/game/stage/stage-manager";
 import {BattleShipPlayer, GameState} from "../../src/game/game";
-import {ReadyEvent, ShipPlacementEvent, ShotEvent} from "../../src/game/event";
+import {ReadyEvent, ShipPlacementEvent, ShotEvent} from "../../src/game/event/event";
 import {expect} from "chai";
 import {getTestShooter, placement1, placement2} from "../util/placement";
 import { EventType, GameTurn } from "../../src/game/_enums";
+import * as sinon from "sinon";
+import { EventEmitter } from "../../src/game/event/event-emitter";
+
+class Foo {
+    constructor(private readonly name: string) {}
+
+    printName() {
+        console.log(this.name);
+        return this.name.toUpperCase();
+    }
+}
 
 describe("Stage dispatching", () => {
-
+    it('Test subs', () => {
+        const ale = sinon.stub(new Foo('ale'));
+        
+        console.log(ale.printName());
+    });
     it('Should change stages: prepare -> ship placement -> battle -> game over -> prepare', () => {
         const player = new BattleShipPlayer("Aleksey");
         const opponent = new BattleShipPlayer("Cpt. Jack Sparrow");
         const gameState = new GameState(player, opponent);
-        const gameStageManager = new GameStageManager(gameState);
+        const eventEmitter = sinon.stub(new EventEmitter());
+        const gameStageManager = new GameStageManager(gameState, eventEmitter);
         gameStageManager.dispatch({type: EventType.blank})
         const playerReadyEvent: ReadyEvent = {
             type: EventType.readyToggle,

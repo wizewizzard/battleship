@@ -1,7 +1,7 @@
 import { expect } from 'chai';
-import {GameBoardBuilderImpl} from '../../src/game/board/builder';
+import {GameBoardBuilderImpl} from '../../src/game/board/board.builder';
 import 'mocha';
-import Ship from "../../src/game/ship";
+import {Ship} from "../../src/game/board/ship.entity";
 import * as _ from "lodash";
 import {placement1} from "../util/placement";
 

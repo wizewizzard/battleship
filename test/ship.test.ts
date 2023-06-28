@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import Ship from '../src/game/ship';
+import {Ship} from '../src/game/board/ship.entity';
 import 'mocha';
 
 describe('Ship tests', () => {

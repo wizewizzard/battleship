@@ -1,5 +1,4 @@
-import {GameBoardBuilder} from '../_interfaces';
-import Ship from "../ship";
+import {Ship} from "./ship.entity";
 import {FieldCellHit, FieldCellShip} from "../_enums";
 import {Point2D} from "../_interfaces";
 

@@ -1,4 +1,4 @@
-import { GameEvent } from "../_interfaces";
+import { GameEvent } from "../event/event";
 import { Stage } from "./stage.interface";
 
 export class GameOverStage implements Stage {

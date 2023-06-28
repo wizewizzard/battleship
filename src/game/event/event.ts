@@ -1,6 +1,9 @@
-import {GameEvent} from "./_interfaces";
-import {EventType} from "./_enums";
-import {Point2D, ReadyEventPayload, ShipPlacementPayload, ShotPayload} from "./event-payload.interface";
+import {EventType} from "../_enums";
+import {ReadyEventPayload, ShipPlacementPayload, ShotPayload} from "./event-payload.interface";
+
+export interface GameEvent {
+    type: EventType;
+}
 
 export interface ReadyEvent extends GameEvent {
     readonly payload: ReadyEventPayload;

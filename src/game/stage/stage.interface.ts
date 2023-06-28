@@ -1,5 +1,5 @@
-import { GameEvent } from "../_interfaces";
-import { EventPayload } from "../event-payload.interface";
+import { GameEvent } from "../event/event";
+import { EventPayload } from "../event/event-payload.interface";
 
 
 export interface Stage {

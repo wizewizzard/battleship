@@ -1,11 +1,14 @@
-import {GameEvent} from "../_interfaces";
 import {GameState} from "../game";
 import {Stage} from "./stage.interface";
 import {DefaultStage} from "./default.stage";
+import { GameEvent } from "../event/event";
+import {EventEmitter} from "../event/event-emitter";
 
 export default class GameStageManager {
 
-    constructor(private readonly gameState: GameState,
+    constructor(
+        private readonly gameState: GameState,
+        private readonly eventEmitter: EventEmitter,
         private currentStage?: Stage) {
         if (!currentStage) {
             currentStage = this.getDefaultStage();
@@ -21,9 +24,8 @@ export default class GameStageManager {
     }
 
     private getDefaultStage(): Stage {
-       return new DefaultStage(this.gameState);
+       return new DefaultStage(this.gameState, this.eventEmitter);
     }
-
 
     private switchStage(stage: Stage) {
         this.currentStage = stage;

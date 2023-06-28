@@ -1,6 +1,7 @@
 import { EventType, GameTurn } from "../_enums";
-import { BoardShotHandler } from "../board/shooting";
-import { ShotEvent } from "../event";
+import { BoardShotHandler } from "../board/shot-handler";
+import { ShotEvent } from "../event/event";
+import { EventEmitter } from "../event/event-emitter";
 import { GameState } from "../game";
 import { GameOverStage } from "./game-over.stage";
 import { Stage } from "./stage.interface";
@@ -13,7 +14,8 @@ export class PlayStage implements Stage {
     private readonly playerBoardShotHandler: BoardShotHandler;
     private readonly opponentBoardShotHandler: BoardShotHandler;
 
-    constructor(private readonly gameState: GameState) {
+    constructor(private readonly gameState: GameState,
+        private readonly eventEmitter: EventEmitter) {
         this.gameState.turn = GameTurn.player;
         this.playerBoardShotHandler = new BoardShotHandler(gameState.player.gameBoard);
         this.opponentBoardShotHandler = new BoardShotHandler(gameState.opponent.gameBoard);
@@ -26,7 +28,7 @@ export class PlayStage implements Stage {
                 this.opponentBoardShotHandler.handleShot({
                     x: shotEvent.payload.coordinate.x,
                     y: shotEvent.payload.coordinate.y
-                });
+                }, );
                 this.gameState.turn = GameTurn.opponent;
             } else if (this.gameState.turn === GameTurn.opponent && shotEvent.payload.player === this.gameState.opponent) {
                 this.playerBoardShotHandler.handleShot({
